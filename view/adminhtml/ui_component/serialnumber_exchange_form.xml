@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="ajaxSave" xsi:type="boolean">true</item>
+            <item name="provider" xsi:type="string">serialnumber_exchange_form.zaahed_serialnumber_exchange_form_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <layout>
+            <type>tabs</type>
+        </layout>
+        <deps>
+            <dep>serialnumber_exchange_form.zaahed_serialnumber_exchange_form_data_source</dep>
+        </deps>
+    </settings>
+
+    <dataSource>
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+        <settings>
+            <submitUrl path="sales/serialnumber/exchangeSerialnumberModal"/>
+        </settings>
+        <dataProvider
+                name="zaahed_serialnumber_exchange_form_data_source"
+                class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+            <settings>
+                <primaryFieldName>id</primaryFieldName>
+                <requestFieldName>id</requestFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+
+    <fieldset name="serialnumber_exchange">
+        <settings>
+            <label>Serial Number Exchange</label>
+        </settings>
+        <input name="item_serialnumber_id" sortOrder="1">
+            <settings>
+                <label>Item Serialnumber ID</label>
+                <dataType>text</dataType>
+                <disabled>true</disabled>
+            </settings>
+        </input>
+        <input name="current_serialnumber" sortOrder="10">
+            <settings>
+                <label translate="true">Current Serial Number</label>
+                <dataType>text</dataType>
+                <disabled>true</disabled>
+            </settings>
+        </input>
+        <field name="return_to_source" sortOrder="20" formElement="select">
+            <settings>
+                <label translate="true">Return To Source</label>
+                <dataType>text</dataType>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="Zaahed\Serialnumber\Ui\Component\Listing\Columns\SourceCode"/>
+                        <caption translate="true">-- Please Select --</caption>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+        <input name="new_serialnumber" sortOrder="30">
+            <settings>
+                <label translate="true">New Serial Number</label>
+                <dataType>text</dataType>
+                <validation>
+                    <rule name="validate-no-empty" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+        </input>
+    </fieldset>
+</form>

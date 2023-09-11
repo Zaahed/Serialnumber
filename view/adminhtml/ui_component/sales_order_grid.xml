@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+
+    <columns name="sales_order_columns">
+        <column name="serialnumbers" class="Zaahed\Serialnumber\Ui\Component\Listing\Columns\Serialnumbers" component="Zaahed_Serialnumber/js/grid/columns/serialnumbers">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Serial numbers</label>
+                <sortable>false</sortable>
+                <disableAction>true</disableAction>
+            </settings>
+        </column>
+    </columns>
+
+</listing>

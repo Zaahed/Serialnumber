@@ -1,0 +1,122 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="zaahed_serialnumber_listing_data_source" xsi:type="string">Zaahed\Serialnumber\Model\ResourceModel\Serialnumber\Grid\Collection</item>
+                <item name="zaahed_serialnumber_log_listing_data_source" xsi:type="string">Zaahed\Serialnumber\Model\ResourceModel\Serialnumber\Log\Grid\Collection</item>
+                <item name="zaahed_serialnumber_order_item_listing_data_source" xsi:type="string">Zaahed\Serialnumber\Model\ResourceModel\Order\Item\Serialnumber\Grid\Collection</item>
+                <item name="zaahed_serialnumber_shipment_item_listing_data_source" xsi:type="string">Zaahed\Serialnumber\Model\ResourceModel\Shipment\Item\Serialnumber\Grid\Collection</item>
+                <item name="zaahed_serialnumber_creditmemo_item_listing_data_source" xsi:type="string">Zaahed\Serialnumber\Model\ResourceModel\Creditmemo\Item\Serialnumber\Grid\Collection</item>
+                <item name="zaahed_serialnumber_order_listing_data_source" xsi:type="string">Zaahed\Serialnumber\Model\ResourceModel\Order\Item\Serialnumber\Grid\OrderViewCollection</item>
+                <item name="zaahed_serialnumber_exchange_form_data_source" xsi:type="string">Zaahed\Serialnumber\Model\ResourceModel\Order\Item\Serialnumber\Grid\OrderViewCollection</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Zaahed\Serialnumber\Model\ResourceModel\Serialnumber\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">serialnumber</argument>
+            <argument name="resourceModel" xsi:type="string">Zaahed\Serialnumber\Model\ResourceModel\Serialnumber</argument>
+        </arguments>
+    </type>
+
+    <virtualType name="Zaahed\Serialnumber\Model\ResourceModel\Serialnumber\Log\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">serialnumber_log</argument>
+            <argument name="resourceModel" xsi:type="string">Zaahed\Serialnumber\Model\ResourceModel\Serialnumber\Log</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Zaahed\Serialnumber\Model\ResourceModel\Order\Item\Serialnumber\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">sales_order_item_serialnumber</argument>
+            <argument name="resourceModel" xsi:type="string">Zaahed\Serialnumber\Model\ResourceModel\Order\Item\Serialnumber</argument>
+        </arguments>
+    </type>
+
+    <type name="Zaahed\Serialnumber\Model\ResourceModel\Shipment\Item\Serialnumber\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">sales_shipment_item_serialnumber</argument>
+            <argument name="resourceModel" xsi:type="string">Zaahed\Serialnumber\Model\ResourceModel\Shipment\Item\Serialnumber</argument>
+        </arguments>
+    </type>
+
+    <type name="Zaahed\Serialnumber\Model\ResourceModel\Creditmemo\Item\Serialnumber\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">sales_creditmemo_item_serialnumber</argument>
+            <argument name="resourceModel" xsi:type="string">Zaahed\Serialnumber\Model\ResourceModel\Creditmemo\Item\Serialnumber</argument>
+        </arguments>
+    </type>
+
+    <type name="Zaahed\Serialnumber\Model\ResourceModel\Order\Item\Serialnumber\Grid\OrderViewCollection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">sales_order_item_serialnumber</argument>
+            <argument name="resourceModel" xsi:type="string">Zaahed\Serialnumber\Model\ResourceModel\Order\Item\Serialnumber</argument>
+        </arguments>
+    </type>
+
+    <preference for="Zaahed\Serialnumber\Api\OrderItemSerialnumberManagementInterface"
+                type="Zaahed\Serialnumber\Model\Service\OrderItemSerialnumberService"/>
+
+    <type name="Zaahed\Serialnumber\Action\SetSerialnumbersForOrderItem">
+        <arguments>
+            <argument name="validators" xsi:type="array">
+                <item name="hasSerialnumbersEnabled" xsi:type="object">Zaahed\Serialnumber\Action\SetSerialnumbersForOrderItem\Validator\HasSerialnumbersEnabled</item>
+                <item name="isAvailable" xsi:type="object">Zaahed\Serialnumber\Action\SetSerialnumbersForOrderItem\Validator\IsAvailable</item>
+                <item name="hasValidOrderStatus" xsi:type="object">Zaahed\Serialnumber\Action\SetSerialnumbersForOrderItem\Validator\HasValidOrderStatus</item>
+                <item name="isAlphanumeric" xsi:type="object">Zaahed\Serialnumber\Action\SetSerialnumbersForOrderItem\Validator\IsAlphanumeric</item>
+                <item name="doesNotExceedQty" xsi:type="object">Zaahed\Serialnumber\Action\SetSerialnumbersForOrderItem\Validator\DoesNotExceedQty</item>
+                <item name="hasValidCharacterLength" xsi:type="object">Zaahed\Serialnumber\Action\SetSerialnumbersForOrderItem\Validator\HasValidCharacterLength</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Zaahed\Serialnumber\Action\SetSerialnumbersForOrderItem\Validator\HasValidOrderStatus">
+        <arguments>
+            <argument name="allowedStates" xsi:type="array">
+                <item name="processing" xsi:type="const">Magento\Sales\Model\Order::STATE_PROCESSING</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Zaahed\Serialnumber\Action\IsProductTypeSupported">
+        <arguments>
+            <argument name="productTypes" xsi:type="array">
+                <item name="simple" xsi:type="string">simple</item>
+                <item name="virtual" xsi:type="string">virtual</item>
+                <item name="downloadable" xsi:type="string">downloadable</item>
+                <item name="grouped" xsi:type="const">\Magento\GroupedProduct\Model\Product\Type\Grouped::TYPE_CODE</item>
+                <item name="configurable" xsi:type="const">\Magento\ConfigurableProduct\Model\Product\Type\Configurable::TYPE_CODE</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Sales\Api\OrderRepositoryInterface">
+        <plugin name="OrderSerialnumbersAttribute"
+                type="Zaahed\Serialnumber\Plugin\Sales\Api\OrderRepositoryInterface\SerialnumbersAttribute"
+                sortOrder="10"/>
+    </type>
+
+    <type name="Zaahed\Dor\Api\RegistrationManagementInterface">
+        <plugin name="CreateSerialnumbersAfterCreatingDorRegistration"
+                type="Zaahed\Serialnumber\Plugin\Dor\Api\RegistrationManagementInterface\CreateSerialnumbers"/>
+        <plugin name="UpdateSerialnumbersAfterUpdatingDorRegistration"
+                type="Zaahed\Serialnumber\Plugin\Dor\Api\RegistrationManagementInterface\UpdateSerialnumbers"/>
+    </type>
+
+    <preference for="Zaahed\Serialnumber\Api\Data\SerialnumberInterface"
+                type="Zaahed\Serialnumber\Model\Serialnumber"/>
+
+    <preference for="Zaahed\Serialnumber\Api\SerialnumberRepositoryInterface"
+                type="Zaahed\Serialnumber\Model\SerialnumberRepository"/>
+
+    <preference for="Zaahed\Serialnumber\Api\Data\OrderItemSerialnumberInterface"
+                type="Zaahed\Serialnumber\Model\Order\Item\Serialnumber"/>
+
+    <preference for="Zaahed\Serialnumber\Api\OrderItemSerialnumberRepositoryInterface"
+                type="Zaahed\Serialnumber\Model\Order\Item\SerialnumberRepository"/>
+
+</config>

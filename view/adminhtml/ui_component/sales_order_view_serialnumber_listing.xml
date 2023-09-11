@@ -1,0 +1,123 @@
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">sales_order_view_serialnumber_listing.zaahed_serialnumber_order_listing_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <spinner>serialnumbers</spinner>
+        <deps>
+            <dep>sales_order_view_serialnumber_listing.zaahed_serialnumber_order_listing_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="zaahed_serialnumber_order_listing_data_source" component="Magento_Ui/js/grid/provider">
+        <settings>
+            <updateUrl path="mui/index/render"/>
+            <filterUrlParams>
+                <param name="order_id">*</param>
+            </filterUrlParams>
+            <storageConfig>
+                <param name="indexField" xsi:type="string">id</param>
+            </storageConfig>
+        </settings>
+        <dataProvider class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider" name="zaahed_serialnumber_order_listing_data_source">
+            <settings>
+                <primaryFieldName>id</primaryFieldName>
+                <requestFieldName>id</requestFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+
+    <listingToolbar name="listing_top">
+        <paging name="listing_paging">
+            <settings>
+                <options>
+                    <option name="20" xsi:type="array">
+                        <item name="value" xsi:type="number">20</item>
+                        <item name="label" xsi:type="string">20</item>
+                    </option>
+                    <option name="30" xsi:type="array">
+                        <item name="value" xsi:type="number">30</item>
+                        <item name="label" xsi:type="string">30</item>
+                    </option>
+                    <option name="50" xsi:type="array">
+                        <item name="value" xsi:type="number">50</item>
+                        <item name="label" xsi:type="string">50</item>
+                    </option>
+                    <option name="100" xsi:type="array">
+                        <item name="value" xsi:type="number">100</item>
+                        <item name="label" xsi:type="string">100</item>
+                    </option>
+                    <option name="200" xsi:type="array">
+                        <item name="value" xsi:type="number">200</item>
+                        <item name="label" xsi:type="string">200</item>
+                    </option>
+                </options>
+                <pageSize>20</pageSize>
+            </settings>
+        </paging>
+        <filters name="listing_filters"/>
+    </listingToolbar>
+
+    <columns name="serialnumbers">
+        <settings>
+            <editorConfig>
+                <param name="clientConfig" xsi:type="array">
+                    <item name="saveUrl" xsi:type="url" path="sales/serialnumber/exchangeSerialnumberInline"/>
+                    <item name="validateBeforeSave" xsi:type="boolean">false</item>
+                </param>
+                <param name="indexField" xsi:type="string">id</param>
+                <param name="enabled" xsi:type="boolean">true</param>
+                <param name="selectProvider" xsi:type="string">sales_order_view_serialnumber_listing.sales_order_view_serialnumber_listing.serialnumbers.ids</param>
+            </editorConfig>
+            <childDefaults>
+                <param name="fieldAction" xsi:type="array">
+                    <item name="provider" xsi:type="string">sales_order_view_serialnumber_listing.sales_order_view_serialnumber_listing.serialnumbers_editor</item>
+                    <item name="target" xsi:type="string">startEdit</item>
+                    <item name="params" xsi:type="array">
+                        <item name="0" xsi:type="string">${ $.$data.rowIndex }</item>
+                        <item name="1" xsi:type="boolean">true</item>
+                    </item>
+                </param>
+            </childDefaults>
+        </settings>
+        <selectionsColumn name="ids">
+            <settings>
+                <indexField>id</indexField>
+            </settings>
+        </selectionsColumn>
+        <column name="id" sortOrder="1">
+            <settings>
+                <label translate="true">ID</label>
+                <sorting>desc</sorting>
+            </settings>
+        </column>
+
+        <column name="name" sortOrder="10">
+            <settings>
+                <label translate="true">Product</label>
+                <filter>text</filter>
+            </settings>
+        </column>
+
+        <column name="serialnumber" sortOrder="20">
+            <settings>
+                <label translate="true">Serial Number</label>
+                <filter>text</filter>
+                <editor>
+                    <editorType>text</editorType>
+                </editor>
+            </settings>
+        </column>
+
+        <actionsColumn name="actions"
+                       class="Zaahed\Serialnumber\Ui\Component\Listing\Columns\OrderViewActions"
+                       component="Zaahed_Serialnumber/js/grid/columns/order-view-actions">
+            <settings>
+                <label translate="true">Actions</label>
+            </settings>
+        </actionsColumn>
+
+    </columns>
+</listing>

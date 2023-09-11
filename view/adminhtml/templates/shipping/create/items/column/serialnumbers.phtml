@@ -1,0 +1,30 @@
+<?php
+/**
+ * @var \Magento\Framework\Escaper $escaper
+ * @var \Zaahed\Serialnumber\ViewModel\Adminhtml\NewShipment\Items\Column\Serialnumbers $viewModel
+ */
+$viewModel = $block->getViewModel();
+$item = $block->getItem();
+?>
+
+<select multiple
+        name="shipment[serialnumbers][<?= $item->getId() ?>][]"
+        class="admin__control-multiselect serialnumbers"
+        data-mage-init='{"newShipmentSerialnumbers":{"item_id": <?= $item->getId()?>}}'
+        <?php if(!$viewModel->isDisabled($item)): ?>
+        data-validate='{"serialnumbers-equal-qty": true}'>
+        <?php else: ?>
+        disabled>
+        <?php endif; ?>
+    <?php foreach ($viewModel->getAvailableSerialnumbers($item) as $id => $serialnumber): ?>
+    <option selected value="<?= $escaper->escapeHtmlAttr($id) ?>"><?= $escaper->escapeHtml($serialnumber) ?></option>
+    <?php endforeach; ?>
+</select>
+
+<script type="text/x-magento-init">
+    {
+        "#edit_form": {
+            "validation": {}
+        }
+    }
+</script>

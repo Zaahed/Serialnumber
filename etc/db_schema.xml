@@ -1,0 +1,166 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="serialnumber" resource="default" engine="innodb" comment="">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true"/>
+        <column xsi:type="varchar" name="serialnumber" nullable="false" length="50"/>
+        <column xsi:type="int" name="source_item_id" unsigned="true" nullable="true" identity="false"/>
+        <column xsi:type="decimal" name="purchase_price" scale="2" precision="12" nullable="true" comment="Price we bought the product for."/>
+        <column xsi:type="boolean" name="is_available" nullable="false" default="true"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="unique" referenceId="SERIALNUMBER_SERIALNUMBER">
+            <column name="serialnumber"/>
+        </constraint>
+        <constraint
+            xsi:type="foreign"
+            referenceId="INVENTORY_SOURCE_ITEM_SOURCE_ITEM_ID"
+            table="serialnumber"
+            column="source_item_id"
+            referenceTable="inventory_source_item"
+            referenceColumn="source_item_id"
+            onDelete="SET NULL"
+            />
+        <index referenceId="SERIALNUMBER_ENTITY_ID" indexType="btree">
+            <column name="entity_id"/>
+        </index>
+    </table>
+
+    <table name="sales_order_item_serialnumber" resource="default" engine="innodb" comment="">
+        <column xsi:type="int" name="id" unsigned="true" nullable="false" identity="true"/>
+        <column xsi:type="int" name="item_id" unsigned="true" nullable="false" identity="false"/>
+        <column xsi:type="int" name="serialnumber_id" unsigned="true" nullable="false" identity="false"/>
+        <column xsi:type="datetime" name="created_at" default="CURRENT_TIMESTAMP" nullable="false"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <constraint xsi:type="unique" referenceId="SALES_ORDER_ITEM_SERIALNUMBER_ITEM_ID_SERIALNUMBER_ID">
+            <column name="item_id"/>
+            <column name="serialnumber_id"/>
+        </constraint>
+        <constraint
+                xsi:type="foreign"
+                referenceId="SALES_ORDER_ITEM_SERIALNUMBER_ITEM_ID"
+                table="sales_order_item_serialnumber"
+                column="item_id"
+                referenceTable="sales_order_item"
+                referenceColumn="item_id"
+                onDelete="CASCADE"
+        />
+        <constraint
+            xsi:type="foreign"
+            referenceId="SALES_ORDER_ITEM_SERIALNUMBER_SERIALNUMBER_ID"
+            table="sales_order_item_serialnumber"
+            column="serialnumber_id"
+            referenceTable="serialnumber"
+            referenceColumn="entity_id"
+            onDelete="CASCADE"
+            />
+        <index referenceId="SALES_ORDER_ITEM_SERIALNUMBER_ID" indexType="btree">
+            <column name="id"/>
+        </index>
+    </table>
+
+    <table name="sales_shipment_item_serialnumber" resource="default" engine="innodb" comment="">
+        <column xsi:type="int" name="id" unsigned="true" nullable="false" identity="true"/>
+        <column xsi:type="int" name="item_id" unsigned="true" nullable="false" identity="false"/>
+        <column xsi:type="int" name="serialnumber_id" unsigned="true" nullable="false" identity="false"/>
+        <column xsi:type="datetime" name="created_at" default="CURRENT_TIMESTAMP" nullable="false"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <constraint xsi:type="unique" referenceId="SALES_SHIPMENT_ITEM_SERIALNUMBER_ITEM_ID_SERIALNUMBER_ID">
+            <column name="item_id"/>
+            <column name="serialnumber_id"/>
+        </constraint>
+        <constraint
+                xsi:type="foreign"
+                referenceId="SALES_SHIPMENT_ITEM_SERIALNUMBER_ITEM_ID"
+                table="sales_shipment_item_serialnumber"
+                column="item_id"
+                referenceTable="sales_shipment_item"
+                referenceColumn="entity_id"
+                onDelete="CASCADE"
+        />
+        <constraint
+                xsi:type="foreign"
+                referenceId="SALES_SHIPMENT_ITEM_SERIALNUMBER_SERIALNUMBER_ID"
+                table="sales_shipment_item_serialnumber"
+                column="serialnumber_id"
+                referenceTable="serialnumber"
+                referenceColumn="entity_id"
+                onDelete="CASCADE"
+        />
+        <index referenceId="SALES_SHIPMENT_ITEM_SERIALNUMBER_ID" indexType="btree">
+            <column name="id"/>
+        </index>
+    </table>
+
+    <table name="sales_creditmemo_item_serialnumber" resource="default" engine="innodb" comment="">
+        <column xsi:type="int" name="id" unsigned="true" nullable="false" identity="true"/>
+        <column xsi:type="int" name="item_id" unsigned="true" nullable="false" identity="false"/>
+        <column xsi:type="int" name="serialnumber_id" unsigned="true" nullable="false" identity="false"/>
+        <column xsi:type="datetime" name="created_at" default="CURRENT_TIMESTAMP" nullable="false"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <constraint xsi:type="unique" referenceId="SALES_CREDITMEMO_ITEM_SERIALNUMBER_ITEM_ID_SERIALNUMBER_ID">
+            <column name="item_id"/>
+            <column name="serialnumber_id"/>
+        </constraint>
+        <constraint
+                xsi:type="foreign"
+                referenceId="SALES_CREDITMEMO_ITEM_SERIALNUMBER_ITEM_ID"
+                table="sales_creditmemo_item_serialnumber"
+                column="item_id"
+                referenceTable="sales_creditmemo_item"
+                referenceColumn="entity_id"
+                onDelete="CASCADE"
+        />
+        <constraint
+                xsi:type="foreign"
+                referenceId="SALES_CREDITMEMO_ITEM_SERIALNUMBER_SERIALNUMBER_ID"
+                table="sales_creditmemo_item_serialnumber"
+                column="serialnumber_id"
+                referenceTable="serialnumber"
+                referenceColumn="entity_id"
+                onDelete="CASCADE"
+        />
+        <index referenceId="SALES_CREDITMEMO_ITEM_SERIALNUMBER_ID" indexType="btree">
+            <column name="id"/>
+        </index>
+    </table>
+
+    <table name="serialnumber_log" resource="default" engine="innodb">
+        <column xsi:type="int" name="id" unsigned="true" nullable="false" identity="true"/>
+        <column xsi:type="int" name="serialnumber_id" unsigned="true" nullable="false" identity="false"/>
+        <column xsi:type="varchar" name="message" length="100" nullable="false"/>
+        <column xsi:type="text" name="message_values" nullable="true" comment="JSON-encoded message values"/>
+        <column xsi:type="int" name="user_id" unsigned="true" nullable="true" comment="User who performed the action"/>
+        <column xsi:type="datetime" name="created_at" default="CURRENT_TIMESTAMP" nullable="false"/>
+        <constraint
+                xsi:type="foreign"
+                referenceId="SERIALNUMBER_LOG_SERIALNUMBER_ID"
+                table="serialnumber_log"
+                column="serialnumber_id"
+                referenceTable="serialnumber"
+                referenceColumn="entity_id"
+                onDelete="CASCADE"
+        />
+        <constraint
+            xsi:type="foreign"
+            referenceId="SERIALNUMBER_LOG_USER_ID"
+            table="serialnumber_log"
+            column="user_id"
+            referenceTable="admin_user"
+            referenceColumn="user_id"
+            onDelete="SET NULL"
+        />
+        <index referenceId="SERIALNUMBER_LOG_ID" indexType="btree">
+            <column name="id"/>
+        </index>
+    </table>
+</schema>

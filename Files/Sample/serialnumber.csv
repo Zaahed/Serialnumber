@@ -1,0 +1,4 @@
+serialnumber,source_item_id,sku,source_code,purchase_price,is_available
+9C5H7J2K3M1N8P,,example-sku,default,199.99,1
+2R9G4T6H7Y5P1Q,,,,499.99,0
+7D3E6F1G2H8J9K,1,,,,1

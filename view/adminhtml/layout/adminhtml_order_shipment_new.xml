@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-1column"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    
+    <body>
+        <referenceBlock name="order_items" template="Zaahed_Serialnumber::shipping/create/items.phtml">
+            <referenceBlock name="default" template="Zaahed_Serialnumber::shipping/create/items/renderer/custom.phtml"/>
+            <block class="Magento\Sales\Block\Adminhtml\Items\Column\DefaultColumn" name="column_serialnumbers" template="Zaahed_Serialnumber::shipping/create/items/column/serialnumbers.phtml" group="column">
+                <arguments>
+                    <argument name="view_model" xsi:type="object">Zaahed\Serialnumber\ViewModel\Adminhtml\NewShipment\Items\Column\Serialnumbers</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

@@ -1,0 +1,16 @@
+<div class="data-grid-cell-content">
+    <each args="$col.getOrderItems($row())">
+        <div class="order-item-serialnumbers" data-bind="class: 'item-id-' + item_id">
+            <span class="order-item-label" text="name + '&nbsp;' + '(' + qty + ')'"></span>
+            <p class="order-item-options" html="options.join('<br>')"></p>
+            <input type="hidden" name="order_item_id" ko-value="item_id"/>
+            <textarea name="serialnumbers"
+                      class="serialnumbers-input"
+                      ko-value="serialnumbers.join('\n')"
+                      event="input: $col.saveSerialnumbers.bind($col, $row(), item_id)"
+                      attr="rows: Math.min(qty, 10)">
+            </textarea>
+            <span class="status"></span>
+        </div>
+    </each>
+</div>

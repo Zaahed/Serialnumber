@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+
+    <body>
+        <referenceBlock name="sales_order_tabs">
+            <block class="Zaahed\Serialnumber\Block\Adminhtml\Sales\Order\View\Tab\Serialnumbers" name="sales_order_serialnumber.grid.container"/>
+            <arguments>
+                    <argument name="tabs" xsi:type="array">
+                        <item name="order_serialnumbers" xsi:type="string">sales_order_serialnumber.grid.container</item>
+                    </argument>
+            </arguments>
+        </referenceBlock>
+        <referenceBlock name="sales_order_serialnumber.grid.container">
+            <uiComponent name="sales_order_view_serialnumber_listing"/>
+        </referenceBlock>
+        <referenceContainer name="content">
+            <container name="exchange.serialnumber.modal" htmlTag="div" htmlId="exchange-serialnumber-modal">
+                <uiComponent name="serialnumber_exchange_form"/>
+            </container>
+        </referenceContainer>
+    </body>
+</page>

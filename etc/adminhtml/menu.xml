@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+	<menu>
+		<add id="Zaahed_Serialnumber::listing"
+			 title="Serial Numbers"
+			 translate="title"
+			 module="Zaahed_Serialnumber"
+			 parent="Magento_Catalog::inventory"
+			 sortOrder="100"
+			 action="catalog/serialnumber/"
+			 resource="Zaahed_Serialnumber::admin"/>
+	</menu>
+</config>

@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">serialnumber_view.zaahed_serialnumber_view_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Serial Number Information</item>
+        <item name="buttons" xsi:type="array">
+            <item name="back" xsi:type="string">Zaahed\Serialnumber\Block\Adminhtml\Serialnumber\View\Back</item>
+        </item>
+    </argument>
+
+    <settings>
+        <layout>
+            <navContainerName>left</navContainerName>
+            <type>tabs</type>
+        </layout>
+        <deps>
+            <dep>serialnumber_view.zaahed_serialnumber_view_data_source</dep>
+        </deps>
+    </settings>
+
+    <dataSource name="zaahed_serialnumber_view_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+        <dataProvider class="Zaahed\Serialnumber\Ui\DataProvider\Serialnumber\DataProvider" name="zaahed_serialnumber_view_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>entity_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+
+    <fieldset name="general">
+        <settings>
+            <label>General Information</label>
+        </settings>
+
+        <field name="serialnumber" formElement="input" sortOrder="10">
+            <settings>
+                <elementTmpl>ui/form/element/text</elementTmpl>
+                <label translate="true">Serial Number</label>
+            </settings>
+        </field>
+
+        <field name="is_available" formElement="input" sortOrder="20">
+            <settings>
+                <elementTmpl>ui/form/element/text</elementTmpl>
+                <label translate="true">Is Available</label>
+            </settings>
+        </field>
+
+        <field name="source_name" formElement="input" sortOrder="30">
+            <settings>
+                <elementTmpl>ui/form/element/text</elementTmpl>
+                <label translate="true">Warehouse</label>
+            </settings>
+        </field>
+
+        <field name="source_description" formElement="input" sortOrder="40">
+            <settings>
+                <elementTmpl>ui/form/element/text</elementTmpl>
+                <label translate="true">Warehouse Description</label>
+            </settings>
+        </field>
+
+        <field name="sku" formElement="input" sortOrder="50">
+            <settings>
+                <elementTmpl>ui/form/element/text</elementTmpl>
+                <label translate="true">SKU</label>
+            </settings>
+        </field>
+
+        <field name="product_name" formElement="input" sortOrder="60">
+            <settings>
+                <elementTmpl>ui/form/element/text</elementTmpl>
+                <label translate="true">Name</label>
+            </settings>
+        </field>
+
+        <field name="purchase_price" formElement="input" sortOrder="70">
+            <settings>
+                <elementTmpl>ui/form/element/text</elementTmpl>
+                <label translate="true">Purchase Price</label>
+            </settings>
+        </field>
+
+        <field name="sell_price" formElement="input" sortOrder="80">
+            <settings>
+                <elementTmpl>ui/form/element/text</elementTmpl>
+                <label translate="true">Selling Price</label>
+            </settings>
+        </field>
+
+    </fieldset>
+
+    <fieldset name="log">
+        <settings>
+            <label>History</label>
+        </settings>
+
+        <insertListing name="serialnumber_log_listing">
+            <settings>
+                <dataLinks>
+                    <exports>false</exports>
+                    <imports>true</imports>
+                </dataLinks>
+                <autoRender>true</autoRender>
+                <dataScope>serialnumber_log_listing</dataScope>
+                <ns>serialnumber_log_listing</ns>
+                <externalProvider>serialnumber_log_listing.zaahed_serialnumber_log_listing_data_source</externalProvider>
+                <exports>
+                    <link name="serialnumber_id">${ $.externalProvider }:params.serialnumber_id</link>
+                </exports>
+                <imports>
+                    <link name="serialnumber_id">${ $.provider }:data.general.entity_id</link>
+                </imports>
+            </settings>
+        </insertListing>
+    </fieldset>
+
+    <fieldset name="order_items">
+        <settings>
+            <label>Order Items</label>
+        </settings>
+
+        <insertListing name="serialnumber_order_item_listing">
+            <settings>
+                <dataLinks>
+                    <exports>false</exports>
+                    <imports>true</imports>
+                </dataLinks>
+                <autoRender>true</autoRender>
+                <dataScope>serialnumber_order_item_listing</dataScope>
+                <ns>serialnumber_order_item_listing</ns>
+                <externalProvider>serialnumber_order_item_listing.zaahed_serialnumber_order_item_listing_data_source</externalProvider>
+                <exports>
+                    <link name="serialnumber_id">${ $.externalProvider }:params.serialnumber_id</link>
+                </exports>
+                <imports>
+                    <link name="serialnumber_id">${ $.provider }:data.general.entity_id</link>
+                </imports>
+            </settings>
+        </insertListing>
+    </fieldset>
+
+    <fieldset name="shipping_items">
+        <settings>
+            <label>Shipping Items</label>
+        </settings>
+
+        <insertListing name="serialnumber_shipment_item_listing">
+            <settings>
+                <dataLinks>
+                    <exports>false</exports>
+                    <imports>true</imports>
+                </dataLinks>
+                <autoRender>true</autoRender>
+                <dataScope>serialnumber_shipment_item_listing</dataScope>
+                <ns>serialnumber_shipment_item_listing</ns>
+                <externalProvider>serialnumber_shipment_item_listing.zaahed_serialnumber_shipment_item_listing_data_source</externalProvider>
+                <exports>
+                    <link name="serialnumber_id">${ $.externalProvider }:params.serialnumber_id</link>
+                </exports>
+                <imports>
+                    <link name="serialnumber_id">${ $.provider }:data.general.entity_id</link>
+                </imports>
+            </settings>
+        </insertListing>
+    </fieldset>
+
+    <fieldset name="creditmemo_items">
+        <settings>
+            <label>Creditmemo Items</label>
+        </settings>
+
+        <insertListing name="serialnumber_creditmemo_item_listing">
+            <settings>
+                <dataLinks>
+                    <exports>false</exports>
+                    <imports>true</imports>
+                </dataLinks>
+                <autoRender>true</autoRender>
+                <dataScope>serialnumber_creditmemo_item_listing</dataScope>
+                <ns>serialnumber_creditmemo_item_listing</ns>
+                <externalProvider>serialnumber_creditmemo_item_listing.zaahed_serialnumber_creditmemo_item_listing_data_source</externalProvider>
+                <exports>
+                    <link name="serialnumber_id">${ $.externalProvider }:params.serialnumber_id</link>
+                </exports>
+                <imports>
+                    <link name="serialnumber_id">${ $.provider }:data.general.entity_id</link>
+                </imports>
+            </settings>
+        </insertListing>
+    </fieldset>
+
+</form>

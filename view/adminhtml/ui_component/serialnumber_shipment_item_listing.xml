@@ -1,0 +1,121 @@
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">serialnumber_shipment_item_listing.zaahed_serialnumber_shipment_item_listing_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <spinner>serialnumber_shipment_item</spinner>
+        <deps>
+            <dep>serialnumber_shipment_item_listing.zaahed_serialnumber_shipment_item_listing_data_source</dep>
+        </deps>
+    </settings>
+
+    <dataSource name="zaahed_serialnumber_shipment_item_listing_data_source" component="Magento_Ui/js/grid/provider">
+        <settings>
+            <updateUrl path="mui/index/render"/>
+            <filterUrlParams>
+                <param name="serialnumber_id">*</param>
+            </filterUrlParams>
+            <storageConfig>
+                <param name="indexField" xsi:type="string">id</param>
+            </storageConfig>
+        </settings>
+        <dataProvider class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider" name="zaahed_serialnumber_shipment_item_listing_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+
+    <listingToolbar name="listing_top">
+        <paging name="listing_paging">
+            <settings>
+                <options>
+                    <option name="20" xsi:type="array">
+                        <item name="value" xsi:type="number">20</item>
+                        <item name="label" xsi:type="string">20</item>
+                    </option>
+                    <option name="30" xsi:type="array">
+                        <item name="value" xsi:type="number">30</item>
+                        <item name="label" xsi:type="string">30</item>
+                    </option>
+                    <option name="50" xsi:type="array">
+                        <item name="value" xsi:type="number">50</item>
+                        <item name="label" xsi:type="string">50</item>
+                    </option>
+                    <option name="100" xsi:type="array">
+                        <item name="value" xsi:type="number">100</item>
+                        <item name="label" xsi:type="string">100</item>
+                    </option>
+                    <option name="200" xsi:type="array">
+                        <item name="value" xsi:type="number">200</item>
+                        <item name="label" xsi:type="string">200</item>
+                    </option>
+                </options>
+                <pageSize>20</pageSize>
+            </settings>
+        </paging>
+        <filters name="listing_filters"/>
+    </listingToolbar>
+
+    <columns name="serialnumber_shipment_item">
+        <column name="id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">1</item>
+                </item>
+            </argument>
+            <settings>
+                <label>ID</label>
+                <visible>false</visible>
+                <sorting>desc</sorting>
+            </settings>
+        </column>
+
+        <column name="name">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">10</item>
+                </item>
+            </argument>
+            <settings>
+                <label translate="true">Name</label>
+                <filter>text</filter>
+            </settings>
+        </column>
+
+        <column name="order_increment_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">20</item>
+                </item>
+            </argument>
+            <settings>
+                <label translate="true">Order ID</label>
+                <filter>text</filter>
+            </settings>
+        </column>
+
+        <column name="shipment_increment_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">30</item>
+                </item>
+            </argument>
+            <settings>
+                <label translate="true">Shipment ID</label>
+                <filter>text</filter>
+            </settings>
+        </column>
+
+        <actionsColumn name="actions" class="Zaahed\Serialnumber\Ui\Component\Listing\Columns\ViewShipment">
+            <settings>
+                <label translate="true">Actions</label>
+            </settings>
+        </actionsColumn>
+
+    </columns>
+</listing>

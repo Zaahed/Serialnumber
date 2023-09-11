@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+
+    <fieldset name="sources">
+        <dynamicRows name="assigned_sources">
+            <container name="record">
+                <field name="serialnumbers" formElement="textarea" sortOrder="55">
+                    <settings>
+                        <label>Serial Numbers</label>
+                        <dataType>text</dataType>
+                    </settings>
+                    <formElements>
+                        <textarea>
+                            <settings>
+                                <cols>10</cols>
+                                <rows>2</rows>
+                            </settings>
+                        </textarea>
+                    </formElements>
+                </field>
+            </container>
+        </dynamicRows>
+    </fieldset>
+
+</form>

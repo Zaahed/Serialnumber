@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="serialnumber" translate="label" sortOrder="55" showInDefault="1" showInWebsite="0" showInStore="0">
+            <class>separator-top</class>
+            <label>Serial Number</label>
+            <tab>catalog</tab>
+            <resource>Zaahed_Serialnumber::settings</resource>
+            <group id="pdf_label" translate="true" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>PDF Label</label>
+                <field id="product_attributes" translate="label" type="multiselect" sortOrder="10" showInDefault="1">
+                    <label>Product Attributes</label>
+                    <source_model>Zaahed\Serialnumber\Model\Config\Source\ProductAttributes</source_model>
+                    <can_be_empty>1</can_be_empty>
+                </field>
+                <field id="attribute_sets" translate="label" type="multiselect" sortOrder="20" showInDefault="1">
+                    <label>Attribute Sets</label>
+                    <source_model>Zaahed\Serialnumber\Model\Config\Source\AttributeSets</source_model>
+                    <can_be_empty>1</can_be_empty>
+                </field>
+                <field id="page_size" translate="label" type="select" sortOrder="30" showInDefault="1">
+                    <label>Page Size</label>
+                    <options>
+                        <option label="A8">A8</option>
+                        <option label="A7">A7</option>
+                        <option label="A6">A6</option>
+                        <option label="A5">A5</option>
+                        <option label="A4">A4</option>
+                        <option label="A3">A3</option>
+                    </options>
+                </field>
+                <field id="font_size" translate="label" type="select" sortOrder="40" showInDefault="1">
+                    <label>Font Size</label>
+                    <options>
+                        <option label="6px">6</option>
+                        <option label="7px">7</option>
+                        <option label="8px">8</option>
+                        <option label="9px">9</option>
+                        <option label="10px">10</option>
+                        <option label="11px">11</option>
+                        <option label="12px">12</option>
+                        <option label="13px">13</option>
+                        <option label="14px">14</option>
+                        <option label="15px">15</option>
+                        <option label="16px">16</option>
+                    </options>
+                </field>
+                <field id="hide_attribute_labels" translate="label comment" type="select" sortOrder="50" showInDefault="1">
+                    <label>Hide Attribute Labels</label>
+                    <comment>Only shows the attribute values.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

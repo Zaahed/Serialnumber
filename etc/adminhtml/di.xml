@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <virtualType name="Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\Pool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="class" xsi:type="string">Zaahed\Serialnumber\Ui\DataProvider\Product\Form\Modifier\Serialnumbers</item>
+                    <item name="sortOrder" xsi:type="number">350</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="Zaahed\Serialnumber\Ui\DataProvider\Serialnumber\Form\Modifier\Pool" type="Magento\Ui\DataProvider\Modifier\Pool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="isAvailable" xsi:type="array">
+                    <item name="class" xsi:type="string">Zaahed\Serialnumber\Ui\DataProvider\Serialnumber\Form\Modifier\IsAvailable</item>
+                    <item name="sortOrder" xsi:type="number">10</item>
+                </item>
+                <item name="sourceInfo" xsi:type="array">
+                    <item name="class" xsi:type="string">Zaahed\Serialnumber\Ui\DataProvider\Serialnumber\Form\Modifier\SourceInfo</item>
+                    <item name="sortOrder" xsi:type="number">20</item>
+                </item>
+                <item name="productInfo" xsi:type="array">
+                    <item name="class" xsi:type="string">Zaahed\Serialnumber\Ui\DataProvider\Serialnumber\Form\Modifier\ProductInfo</item>
+                    <item name="sortOrder" xsi:type="number">30</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Zaahed\Serialnumber\Ui\DataProvider\Serialnumber\DataProvider">
+        <arguments>
+            <argument name="pool" xsi:type="object">Zaahed\Serialnumber\Ui\DataProvider\Serialnumber\Form\Modifier\Pool</argument>
+        </arguments>
+    </type>
+
+    <type name="Zaahed\Serialnumber\Model\Import\Serialnumber">
+        <arguments>
+            <argument name="logManager" xsi:type="object" shared="false">Zaahed\Serialnumber\Model\Serialnumber\LogManager</argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\ImportExport\Model\Import\SampleFileProvider">
+        <arguments>
+            <argument name="samples" xsi:type="array">
+                <item name="serialnumber" xsi:type="string">Zaahed_Serialnumber</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Shipping\Controller\Adminhtml\Order\Shipment\Save">
+        <plugin name="AddSerialnumbersToRegistry"
+                type="Zaahed\Serialnumber\Plugin\Shipping\Controller\Adminhtml\Order\Shipment\Save\AddSerialnumbersToRegistry"/>
+    </type>
+
+    <type name="Magento\Sales\Model\ResourceModel\Order\Shipment\Item">
+        <plugin name="ShipmentItemSerialnumbersAttribute"
+                type="Zaahed\Serialnumber\Plugin\Sales\Model\ResourceModel\Order\Shipment\Item\SerialnumbersAttribute"/>
+
+        <plugin name="SetSerialnumbersFromRegistry"
+                type="Zaahed\Serialnumber\Plugin\Sales\Model\ResourceModel\Order\Shipment\Item\SetSerialnumbersFromRegistry"/>
+    </type>
+
+    <type name="MyParcelNL\Magento\Controller\Adminhtml\Order\CreateAndPrintMyParcelTrack">
+        <plugin name="AddSerialnumbersToRegistryPrintMyParcelTrack"
+                type="Zaahed\Serialnumber\Plugin\MyParcelNL\Magento\Controller\Adminhtml\Order\CreateAndPrintMyParcelTrack\AddSerialnumbersToRegistry"/>
+    </type>
+
+    <type name="Magento\Sales\Model\Order\CreditmemoFactory">
+        <plugin name="ValidateSerialnumbersEqualQtyForCreditmemo"
+                type="Zaahed\Serialnumber\Plugin\Sales\Model\Order\CreditmemoFactory\ValidateSerialnumbersEqualQty"/>
+        <plugin name="SetSerialnumbersOnCreditmemoItems"
+                type="Zaahed\Serialnumber\Plugin\Sales\Model\Order\CreditmemoFactory\SetSerialnumbersOnItems"/>
+    </type>
+
+    <type name="Magento\Sales\Model\ResourceModel\Order\Creditmemo\Item">
+        <plugin name="CreditmemoItemSerialnumbersAttribute"
+                type="Zaahed\Serialnumber\Plugin\Sales\Model\ResourceModel\Order\Creditmemo\Item\SerialnumbersAttribute"
+                sortOrder="10"/>
+        <plugin name="ProcessReturnToStock"
+                type="Zaahed\Serialnumber\Plugin\Sales\Model\ResourceModel\Order\Creditmemo\Item\ProcessReturnToStock"
+                sortOrder="20"/>
+    </type>
+
+    <type name="Magento\Sales\Api\OrderItemRepositoryInterface">
+        <plugin name="OrderItemSerialnumbersAttribute"
+                type="Zaahed\Serialnumber\Plugin\Sales\Api\OrderItemRepositoryInterface\SerialnumbersAttribute"
+                sortOrder="10"/>
+    </type>
+
+    <type name="Magento\Ui\Model\Export\MetadataProvider">
+        <plugin name="SerialnumbersColumnForExport"
+                type="Zaahed\Serialnumber\Plugin\Ui\Model\Export\SerialnumbersColumn"/>
+    </type>
+
+    <type name="Magento\InventoryApi\Api\SourceItemRepositoryInterface">
+        <plugin name="SourceItemSerialnumbersAttribute"
+                type="Zaahed\Serialnumber\Plugin\InventoryApi\Api\SourceItemRepositoryInterface\SerialnumbersAttribute"/>
+    </type>
+
+    <type name="Magento\InventoryApi\Api\SourceItemsSaveInterface">
+        <plugin name="SaveSourceItemSerialnumbers"
+                type="Zaahed\Serialnumber\Plugin\InventoryApi\Api\SourceItemsSaveInterface\SaveSerialnumbers"/>
+    </type>
+
+    <type name="Magento\Framework\Api\DataObjectHelper">
+        <plugin name="SetSerialnumbersFromArrayOnSourceItem"
+                type="Zaahed\Serialnumber\Plugin\Framework\Api\DataObjectHelper\SetSerialnumbersOnSourceItem"/>
+    </type>
+
+    <type name="Magento\Sales\Block\Adminhtml\Order\View\Tabs">
+        <plugin name="DeclarativeTabDirectives" type="Zaahed\Serialnumber\Plugin\Sales\Block\Adminhtml\Order\View\Tabs\DeclarativeTabDirectives"/>
+    </type>
+
+</config>

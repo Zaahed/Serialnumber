@@ -1,0 +1,31 @@
+<?php
+/**
+ * @var \Magento\Framework\Escaper $escaper
+ * @var \Zaahed\Serialnumber\ViewModel\Adminhtml\NewCreditmemo\Items\Column\Serialnumbers $viewModel
+ */
+$viewModel = $block->getViewModel();
+$orderItem = $block->getItem();
+$creditmemoItem = $block->getData('item');
+
+$creditmemoSerialnumbers = $creditmemoItem->getExtensionAttributes()->getSerialnumbers();
+$selectedSerialnumberIds = !is_array($creditmemoSerialnumbers) ? [] :
+    array_map(function($serialnumber) {
+        return $serialnumber->getSerialnumberid();
+        }, $creditmemoSerialnumbers);
+
+$allSelected = empty($selectedSerialnumberIds) && $creditmemoItem->getQty() > 0;
+?>
+
+<select multiple
+        name="creditmemo[items][<?= $orderItem->getId() ?>][serialnumbers][]"
+        class="admin__control-multiselect serialnumbers">
+    <?php foreach ($viewModel->getAvailableSerialnumbers($orderItem) as $id => $serialnumber): ?>
+    <option
+        <?php if (
+                $allSelected ||
+                in_array($id, $selectedSerialnumberIds)): ?>
+            selected
+        <?php endif; ?>
+        value="<?= $escaper->escapeHtmlAttr($id) ?>"><?= $escaper->escapeHtml($serialnumber) ?></option>
+    <?php endforeach; ?>
+</select>

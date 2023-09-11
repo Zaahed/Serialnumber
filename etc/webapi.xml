@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    
+    <route method="PUT" url="/V1/serialnumber/order-item/:itemId/set-serialnumbers">
+        <service class="Zaahed\Serialnumber\Api\OrderItemSerialnumberManagementInterface" method="setSerialnumbers"/>
+        <resources>
+            <resource ref="Zaahed_Serialnumber::order_item"/>
+        </resources>
+    </route>
+    
+</routes>

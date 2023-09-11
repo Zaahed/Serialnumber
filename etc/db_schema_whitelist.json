@@ -1,0 +1,33 @@
+{
+    "serialnumber": {
+        "column": {
+            "entity_id": true,
+            "serialnumber": true,
+            "source_item_id": true,
+            "is_available": true
+        },
+        "index": {
+            "SERIALNUMBER_ENTITY_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "SERIALNUMBER_SERIALNUMBER": true,
+            "SERIALNUMBER_SOURCE_ITEM_ID_INVENTORY_SOURCE_ITEM_SOURCE_ITEM_ID": true
+        }
+    },
+    "sales_order_item_serialnumber": {
+        "column": {
+            "id": true,
+            "item_id": true,
+            "serialnumber_id": true
+        },
+        "index": {
+            "SALES_ORDER_ITEM_SERIALNUMBER_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "SALES_ORDER_ITEM_SERIALNUMBER_ITEM_ID_SALES_ORDER_ITEM_ITEM_ID": true,
+            "FK_71B16C6C9EB150FA5799991ECD04EA0F": true
+        }
+    }
+}
